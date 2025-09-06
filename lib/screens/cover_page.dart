@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../theme/colors.dart';
+import '../widgets/save_slot_modal.dart';
 
 class CoverPage extends StatelessWidget {
   const CoverPage({super.key});
@@ -48,15 +49,17 @@ class CoverPage extends StatelessWidget {
                         padding: const EdgeInsets.only(right: 10.0),
                         child: ElevatedButton(
                           onPressed: () {
-                            // TODO: Implement New functionality
+                            showDialog(
+                              context: context,
+                              builder: (BuildContext context) {
+                                return const SaveSlotModal(title: 'Choose Save Slot');
+                              },
+                            );
                           },
                           style: ElevatedButton.styleFrom(
                             backgroundColor: AppColors.primary,
                             foregroundColor: AppColors.onPrimary,
                             padding: const EdgeInsets.symmetric(vertical: 16.0),
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(8.0),
-                            ),
                             elevation: 4,
                           ),
                           child: const Text(
@@ -74,15 +77,17 @@ class CoverPage extends StatelessWidget {
                         padding: const EdgeInsets.only(left: 10.0),
                         child: ElevatedButton(
                           onPressed: () {
-                            // TODO: Implement Load functionality
+                            showDialog(
+                              context: context,
+                              builder: (BuildContext context) {
+                                return const SaveSlotModal(title: 'Choose Save Slot to Load');
+                              },
+                            );
                           },
                           style: ElevatedButton.styleFrom(
                             backgroundColor: AppColors.secondary,
                             foregroundColor: AppColors.onSecondary,
                             padding: const EdgeInsets.symmetric(vertical: 16.0),
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(8.0),
-                            ),
                             elevation: 4,
                           ),
                           child: const Text(
