@@ -60,13 +60,13 @@ class SettingsDrawer extends StatelessWidget {
                   final isSelected = localeProvider.locale == localeInfo.locale;
                   
                   return Card(
-                    color: isSelected ? AppColors.primary.withOpacity(0.1) : AppColors.surface,
+                    color: isSelected ? AppColors.primary.withValues(alpha: 0.1) : AppColors.surface,
                     elevation: isSelected ? 2 : 0,
                     margin: const EdgeInsets.only(bottom: 8),
                     child: ListTile(
                       leading: Icon(
                         Icons.language,
-                        color: isSelected ? AppColors.primary : AppColors.onSurface.withOpacity(0.6),
+                        color: isSelected ? AppColors.primary : AppColors.onSurface.withValues(alpha: 0.6),
                       ),
                       title: Text(
                         localeInfo.displayName,
@@ -87,7 +87,7 @@ class SettingsDrawer extends StatelessWidget {
                       },
                     ),
                   );
-                }).toList(),
+                }),
               ],
             ),
           ),

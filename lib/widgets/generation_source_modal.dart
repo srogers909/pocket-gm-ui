@@ -3,6 +3,7 @@ import '../generated/app_localizations.dart';
 import 'package:pocket_gm_generator/pocket_gm_generator.dart';
 import '../theme/colors.dart';
 import 'team_selection_modal.dart';
+import '../screens/roster_screen.dart';
 
 class GenerationSourceModal extends StatelessWidget {
   const GenerationSourceModal({super.key});
@@ -86,8 +87,12 @@ class GenerationSourceModal extends StatelessWidget {
         return TeamSelectionModal(
           league: league,
           onTeamSelected: (Team selectedTeam) {
-            // TODO: Handle team selection - save to state/preferences
-            debugPrint('Selected team: ${selectedTeam.city} ${selectedTeam.name}');
+            // Navigate to the roster screen with the selected team
+            Navigator.of(context).push(
+              MaterialPageRoute(
+                builder: (context) => RosterScreen(team: selectedTeam),
+              ),
+            );
           },
         );
       },

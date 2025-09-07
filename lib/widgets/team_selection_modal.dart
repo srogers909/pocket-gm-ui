@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:pocket_gm_generator/pocket_gm_generator.dart';
 import '../generated/app_localizations.dart';
 import '../theme/colors.dart';
+import '../utils/rating_utils.dart';
 
 class TeamSelectionModal extends StatefulWidget {
   final League league;
@@ -20,22 +21,75 @@ class TeamSelectionModal extends StatefulWidget {
 class _TeamSelectionModalState extends State<TeamSelectionModal> {
   bool _showOverallRating = false;
 
-  /// Returns the color for a team's overall rating based on their tier
-  Color _getTierColor(TeamTier? tier) {
-    switch (tier) {
-      case TeamTier.superBowlContender:
-        return AppColors.tierSuperBowlContender;
-      case TeamTier.playoffTeam:
-        return AppColors.tierPlayoffTeam;
-      case TeamTier.average:
-        return AppColors.tierAverage;
-      case TeamTier.rebuilding:
-        return AppColors.tierRebuilding;
-      case TeamTier.bad:
-        return AppColors.tierBad;
-      default:
-        return AppColors.tierUnknown;
-    }
+
+  /// Shows a confirmation dialog when a team is selected
+  void _showTeamConfirmationDialog(Team team) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          backgroundColor: AppColors.surface,
+          title: Text(
+            'Are you sure you want to control ${team.name}?',
+            style: TextStyle(
+              color: AppColors.background,
+              fontSize: 18,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          actions: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                ElevatedButton(
+                  onPressed: () {
+                    Navigator.of(context).pop(); // Close confirmation dialog
+                    Navigator.of(context).pop(); // Close team selection modal
+                    widget.onTeamSelected(team);
+                  },
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: AppColors.primary,
+                    foregroundColor: AppColors.onPrimary,
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 20.0,
+                      vertical: 12.0,
+                    ),
+                  ),
+                  child: const Text(
+                    'Yes!',
+                    style: TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
+                const SizedBox(width: 12),
+                ElevatedButton(
+                  onPressed: () {
+                    Navigator.of(context).pop(); // Close confirmation dialog only
+                  },
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.grey.shade600,
+                    foregroundColor: AppColors.onPrimary,
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 20.0,
+                      vertical: 12.0,
+                    ),
+                  ),
+                  child: const Text(
+                    'No',
+                    style: TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ],
+        );
+      },
+    );
   }
 
   @override
@@ -80,7 +134,7 @@ class _TeamSelectionModalState extends State<TeamSelectionModal> {
                           _showOverallRating = value;
                         });
                       },
-                      activeColor: AppColors.primary,
+                      activeThumbColor: AppColors.primary,
                       inactiveTrackColor: Colors.grey.shade400,
                     ),
                   ],
@@ -126,7 +180,7 @@ class _TeamSelectionModalState extends State<TeamSelectionModal> {
                             ),
                           ),
                           // Team Buttons for this division (sorted by overall rating descending)
-                          ...(division.teams.toList()
+                          ...(division.teams
                               ..sort((a, b) => b.averageOverallRating.compareTo(a.averageOverallRating)))
                               .map((team) {
                             return Padding(
@@ -135,8 +189,7 @@ class _TeamSelectionModalState extends State<TeamSelectionModal> {
                                 width: double.infinity,
                                 child: ElevatedButton(
                                   onPressed: () {
-                                    Navigator.of(context).pop();
-                                    widget.onTeamSelected(team);
+                                    _showTeamConfirmationDialog(team);
                                   },
                                   style: ElevatedButton.styleFrom(
                                     backgroundColor: conferenceColor,
@@ -163,11 +216,11 @@ class _TeamSelectionModalState extends State<TeamSelectionModal> {
                                       // Right-aligned team overall rating (conditional)
                                       if (_showOverallRating)
                                         Text(
-                                          team.averageOverallRating.toStringAsFixed(1),
+                                          RatingUtils.getLetterGrade(team.averageOverallRating.ceil()),
                                           style: TextStyle(
                                             fontSize: 14,
                                             fontWeight: FontWeight.bold,
-                                            color: _getTierColor(team.displayTier),
+                                            color: RatingUtils.getRatingColor(team.averageOverallRating.ceil()),
                                           ),
                                         ),
                                     ],
@@ -175,14 +228,14 @@ class _TeamSelectionModalState extends State<TeamSelectionModal> {
                                 ),
                               ),
                             );
-                          }).toList(),
+                          }),
                         ],
                       );
-                    }).toList(),
+                    }),
                     const SizedBox(height: 12), // Space between conferences
                   ],
                 );
-              }).toList(),
+              }),
               // Rating Key Section (conditional)
               if (_showOverallRating)
                 Padding(
@@ -199,32 +252,22 @@ class _TeamSelectionModalState extends State<TeamSelectionModal> {
                         ),
                       ),
                       const SizedBox(height: 8),
-                      ...TeamTier.values.map((tier) {
-                        String tierName;
-                        String ratingRange;
-                        switch (tier) {
-                          case TeamTier.superBowlContender:
-                            tierName = localizations.tierElite;
-                            ratingRange = '85+';
-                            break;
-                          case TeamTier.playoffTeam:
-                            tierName = localizations.tierStrong;
-                            ratingRange = '80-84';
-                            break;
-                          case TeamTier.average:
-                            tierName = localizations.tierAverage;
-                            ratingRange = '76-79';
-                            break;
-                          case TeamTier.rebuilding:
-                            tierName = localizations.tierRebuilding;
-                            ratingRange = '71-75';
-                            break;
-                          case TeamTier.bad:
-                            tierName = localizations.tierPoor;
-                            ratingRange = '66-70';
-                            break;
-                        }
-
+                      // Letter grade ranges instead of numerical
+                      ...[
+                        {'grade': 'A+', 'range': '97-100', 'rating': 98},
+                        {'grade': 'A', 'range': '93-96', 'rating': 94},
+                        {'grade': 'A-', 'range': '90-92', 'rating': 91},
+                        {'grade': 'B+', 'range': '87-89', 'rating': 88},
+                        {'grade': 'B', 'range': '83-86', 'rating': 84},
+                        {'grade': 'B-', 'range': '80-82', 'rating': 81},
+                        {'grade': 'C+', 'range': '77-79', 'rating': 78},
+                        {'grade': 'C', 'range': '73-76', 'rating': 74},
+                        {'grade': 'C-', 'range': '70-72', 'rating': 71},
+                        {'grade': 'D+', 'range': '67-69', 'rating': 68},
+                        {'grade': 'D', 'range': '63-66', 'rating': 64},
+                        {'grade': 'D-', 'range': '60-62', 'rating': 61},
+                        {'grade': 'F', 'range': '0-59', 'rating': 30},
+                      ].map((gradeInfo) {
                         return Padding(
                           padding: const EdgeInsets.symmetric(vertical: 2.0),
                           child: Row(
@@ -234,7 +277,7 @@ class _TeamSelectionModalState extends State<TeamSelectionModal> {
                                 width: 16,
                                 height: 16,
                                 decoration: BoxDecoration(
-                                  color: _getTierColor(tier),
+                                  color: RatingUtils.getRatingColor(gradeInfo['rating'] as int),
                                   borderRadius: BorderRadius.circular(2),
                                   border: Border.all(
                                     color: Colors.grey.shade400,
@@ -243,9 +286,9 @@ class _TeamSelectionModalState extends State<TeamSelectionModal> {
                                 ),
                               ),
                               const SizedBox(width: 8),
-                              // Tier name and rating range
+                              // Letter grade and numerical range
                               Text(
-                                '$ratingRange ($tierName)',
+                                '${gradeInfo['grade']} (${gradeInfo['range']})',
                                 style: TextStyle(
                                   fontSize: 12,
                                   color: AppColors.background,
@@ -254,7 +297,7 @@ class _TeamSelectionModalState extends State<TeamSelectionModal> {
                             ],
                           ),
                         );
-                      }).toList(),
+                      }),
                     ],
                   ),
                 ),

@@ -32,7 +32,7 @@ class CoverPage extends StatelessWidget {
                         Shadow(
                           offset: const Offset(2, 2),
                           blurRadius: 4,
-                          color: Colors.black.withOpacity(0.7),
+                          color: Colors.black.withValues(alpha: 0.7),
                         ),
                       ],
                     ),
