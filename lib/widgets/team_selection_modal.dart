@@ -16,17 +16,17 @@ class TeamSelectionModal extends StatelessWidget {
   Color _getTierColor(TeamTier? tier) {
     switch (tier) {
       case TeamTier.superBowlContender:
-        return const Color(0xFF00FF00); // Bright Green
+        return AppColors.tierSuperBowlContender;
       case TeamTier.playoffTeam:
-        return const Color(0xFFADFF2F); // Green-Yellow
+        return AppColors.tierPlayoffTeam;
       case TeamTier.average:
-        return const Color(0xFFFFFF00); // Yellow
+        return AppColors.tierAverage;
       case TeamTier.rebuilding:
-        return const Color(0xFFFFA500); // Orange
+        return AppColors.tierRebuilding;
       case TeamTier.bad:
-        return const Color(0xFFFF0000); // Bright Red
+        return AppColors.tierBad;
       default:
-        return const Color(0xFFFFFFFF); // White for unknown
+        return AppColors.tierUnknown;
     }
   }
 

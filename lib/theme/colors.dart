@@ -19,4 +19,12 @@ class AppColors {
   static const Color onPrimary = Colors.white;
   static const Color onBackground = bigMachine3;
   static const Color onSecondary = Colors.white;
+  
+  // Team tier colors for rating display
+  static const Color tierSuperBowlContender = Color(0xFF00FF00); // Bright Green
+  static const Color tierPlayoffTeam = Color(0xFFADFF2F); // Green-Yellow
+  static const Color tierAverage = Color(0xFFFFFF00); // Yellow
+  static const Color tierRebuilding = Color(0xFFFFA500); // Orange
+  static const Color tierBad = Color(0xFFFF0000); // Bright Red
+  static const Color tierUnknown = Color(0xFFFFFFFF); // White for unknown
 }
