@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:pocket_gm_generator/pocket_gm_generator.dart';
+import '../generated/app_localizations.dart';
 import '../theme/colors.dart';
 
 class TeamSelectionModal extends StatelessWidget {
@@ -32,10 +33,12 @@ class TeamSelectionModal extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final localizations = AppLocalizations.of(context)!;
+    
     return AlertDialog(
       backgroundColor: AppColors.surface,
       title: Text(
-        'Choose your team:',
+        localizations.chooseYourTeam,
         style: TextStyle(
           color: AppColors.background,
           fontSize: 20,
@@ -152,7 +155,7 @@ class TeamSelectionModal extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      'Rating Key:',
+                      localizations.ratingKey,
                       style: TextStyle(
                         fontSize: 16,
                         fontWeight: FontWeight.bold,
@@ -161,22 +164,28 @@ class TeamSelectionModal extends StatelessWidget {
                     ),
                     const SizedBox(height: 8),
                     ...TeamTier.values.map((tier) {
+                      String tierName;
                       String ratingRange;
                       switch (tier) {
                         case TeamTier.superBowlContender:
-                          ratingRange = '85+ (Elite)';
+                          tierName = localizations.tierElite;
+                          ratingRange = '85+';
                           break;
                         case TeamTier.playoffTeam:
-                          ratingRange = '80-84 (Strong)';
+                          tierName = localizations.tierStrong;
+                          ratingRange = '80-84';
                           break;
                         case TeamTier.average:
-                          ratingRange = '76-79 (Average)';
+                          tierName = localizations.tierAverage;
+                          ratingRange = '76-79';
                           break;
                         case TeamTier.rebuilding:
-                          ratingRange = '71-75 (Rebuilding)';
+                          tierName = localizations.tierRebuilding;
+                          ratingRange = '71-75';
                           break;
                         case TeamTier.bad:
-                          ratingRange = '66-70 (Poor)';
+                          tierName = localizations.tierPoor;
+                          ratingRange = '66-70';
                           break;
                       }
 
@@ -200,7 +209,7 @@ class TeamSelectionModal extends StatelessWidget {
                             const SizedBox(width: 8),
                             // Tier name and rating range
                             Text(
-                              '${tier.displayName}: $ratingRange',
+                              '$ratingRange ($tierName)',
                               style: TextStyle(
                                 fontSize: 12,
                                 color: AppColors.background,

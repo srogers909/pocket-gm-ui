@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../generated/app_localizations.dart';
 import '../theme/colors.dart';
 import '../widgets/save_slot_modal.dart';
 
@@ -7,6 +8,8 @@ class CoverPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final localizations = AppLocalizations.of(context)!;
+    
     return Scaffold(
       backgroundColor: AppColors.background,
       body: SafeArea(
@@ -20,7 +23,7 @@ class CoverPage extends StatelessWidget {
                 flex: 2,
                 child: Center(
                   child: Text(
-                    'Pocket GM',
+                    localizations.appTitle,
                     style: TextStyle(
                       fontSize: 48,
                       fontWeight: FontWeight.bold,
@@ -52,7 +55,7 @@ class CoverPage extends StatelessWidget {
                             showDialog(
                               context: context,
                               builder: (BuildContext context) {
-                                return const SaveSlotModal(title: 'Choose Save Slot');
+                                return SaveSlotModal(title: localizations.chooseSaveSlot);
                               },
                             );
                           },
@@ -62,9 +65,9 @@ class CoverPage extends StatelessWidget {
                             padding: const EdgeInsets.symmetric(vertical: 16.0),
                             elevation: 4,
                           ),
-                          child: const Text(
-                            'New',
-                            style: TextStyle(
+                          child: Text(
+                            localizations.newButton,
+                            style: const TextStyle(
                               fontSize: 18,
                               fontWeight: FontWeight.bold,
                             ),
@@ -80,7 +83,7 @@ class CoverPage extends StatelessWidget {
                             showDialog(
                               context: context,
                               builder: (BuildContext context) {
-                                return const SaveSlotModal(title: 'Choose Save Slot to Load');
+                                return SaveSlotModal(title: localizations.chooseSaveSlotToLoad);
                               },
                             );
                           },
@@ -90,9 +93,9 @@ class CoverPage extends StatelessWidget {
                             padding: const EdgeInsets.symmetric(vertical: 16.0),
                             elevation: 4,
                           ),
-                          child: const Text(
-                            'Load',
-                            style: TextStyle(
+                          child: Text(
+                            localizations.loadButton,
+                            style: const TextStyle(
                               fontSize: 18,
                               fontWeight: FontWeight.bold,
                             ),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../generated/app_localizations.dart';
 import '../theme/colors.dart';
 import 'generation_source_modal.dart';
 
@@ -12,6 +13,8 @@ class SaveSlotModal extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final localizations = AppLocalizations.of(context)!;
+    
     return AlertDialog(
       backgroundColor: AppColors.surface,
       title: Text(
@@ -52,9 +55,9 @@ class SaveSlotModal extends StatelessWidget {
                       padding: const EdgeInsets.symmetric(vertical: 12.0),
                       elevation: 2,
                     ),
-                    child: const Text(
-                      'EMPTY',
-                      style: TextStyle(
+                    child: Text(
+                      localizations.empty,
+                      style: const TextStyle(
                         fontSize: 16,
                         fontWeight: FontWeight.bold,
                       ),
@@ -79,9 +82,9 @@ class SaveSlotModal extends StatelessWidget {
                 vertical: 8.0,
               ),
             ),
-            child: const Text(
-              'Cancel',
-              style: TextStyle(
+            child: Text(
+              localizations.cancel,
+              style: const TextStyle(
                 fontSize: 16,
                 fontWeight: FontWeight.bold,
               ),

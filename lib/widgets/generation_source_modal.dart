@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../generated/app_localizations.dart';
 import 'package:pocket_gm_generator/pocket_gm_generator.dart';
 import '../theme/colors.dart';
 import 'team_selection_modal.dart';
@@ -8,10 +9,12 @@ class GenerationSourceModal extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final localizations = AppLocalizations.of(context)!;
+    
     return AlertDialog(
       backgroundColor: AppColors.surface,
       content: Text(
-        'Do you want to generate a league or load an online roster file?',
+        localizations.generationSourceQuestion,
         style: TextStyle(
           color: AppColors.background,
           fontSize: 16,
@@ -35,9 +38,9 @@ class GenerationSourceModal extends StatelessWidget {
                   vertical: 8.0,
                 ),
               ),
-              child: const Text(
-                'Load from Online',
-                style: TextStyle(
+              child: Text(
+                localizations.loadFromOnline,
+                style: const TextStyle(
                   fontSize: 16,
                   fontWeight: FontWeight.bold,
                 ),
@@ -56,9 +59,9 @@ class GenerationSourceModal extends StatelessWidget {
                   vertical: 8.0,
                 ),
               ),
-              child: const Text(
-                'Generate',
-                style: TextStyle(
+              child: Text(
+                localizations.generate,
+                style: const TextStyle(
                   fontSize: 16,
                   fontWeight: FontWeight.bold,
                 ),

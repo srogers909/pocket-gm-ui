@@ -1,0 +1,71 @@
+{
+  "@@locale": "en",
+  "appTitle": "Pocket GM",
+  "@appTitle": {
+    "description": "The title of the application"
+  },
+  "newButton": "New",
+  "@newButton": {
+    "description": "Button text for creating a new game"
+  },
+  "loadButton": "Load",
+  "@loadButton": {
+    "description": "Button text for loading an existing game"
+  },
+  "chooseSaveSlot": "Choose Save Slot",
+  "@chooseSaveSlot": {
+    "description": "Title for the save slot selection dialog"
+  },
+  "chooseSaveSlotToLoad": "Choose Save Slot to Load",
+  "@chooseSaveSlotToLoad": {
+    "description": "Title for the load save slot selection dialog"
+  },
+  "empty": "EMPTY",
+  "@empty": {
+    "description": "Label for empty save slots"
+  },
+  "cancel": "Cancel",
+  "@cancel": {
+    "description": "Cancel button text"
+  },
+  "generationSourceQuestion": "Do you want to generate a league or load an online roster file?",
+  "@generationSourceQuestion": {
+    "description": "Question asking user to choose between generating a league or loading from online"
+  },
+  "loadFromOnline": "Load from Online",
+  "@loadFromOnline": {
+    "description": "Button text for loading roster from online"
+  },
+  "generate": "Generate",
+  "@generate": {
+    "description": "Button text for generating a new league"
+  },
+  "chooseYourTeam": "Choose your team:",
+  "@chooseYourTeam": {
+    "description": "Title for team selection dialog"
+  },
+  "ratingKey": "Rating Key:",
+  "@ratingKey": {
+    "description": "Header for the team rating legend"
+  },
+  "tierElite": "Elite",
+  "@tierElite": {
+    "description": "Description for teams with 85+ rating"
+  },
+  "tierStrong": "Strong",
+  "@tierStrong": {
+    "description": "Description for teams with 80-84 rating"
+  },
+  "tierAverage": "Average",
+  "@tierAverage": {
+    "description": "Description for teams with 76-79 rating"
+  },
+  "tierRebuilding": "Rebuilding",
+  "@tierRebuilding": {
+    "description": "Description for teams with 71-75 rating"
+  },
+  "tierPoor": "Poor",
+  "@tierPoor": {
+    "description": "Description for teams with 66-70 rating"
+  }
+}
