@@ -67,5 +67,13 @@
   "tierPoor": "Poor",
   "@tierPoor": {
     "description": "Description for teams with 66-70 rating"
+  },
+  "settings": "Settings",
+  "@settings": {
+    "description": "Settings page title"
+  },
+  "language": "Language",
+  "@language": {
+    "description": "Language selection section title"
   }
 }

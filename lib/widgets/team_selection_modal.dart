@@ -55,7 +55,7 @@ class TeamSelectionModal extends StatelessWidget {
               // Conference sections
               ...league.conferences.map((conference) {
                 // Use neutral gray colors for each conference to avoid clashing with rating colors
-                final Color conferenceColor = conference.name == 'LFC' 
+                final Color conferenceColor = conference.abbreviation == 'LFC' 
                     ? const Color(0xFF616161) // Medium gray for LFC
                     : const Color(0xFF424242); // Darker gray for FFC
 
@@ -66,7 +66,7 @@ class TeamSelectionModal extends StatelessWidget {
                     Padding(
                       padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 8.0),
                       child: Text(
-                        conference.name,
+                        '${conference.name} (${conference.abbreviation})',
                         style: TextStyle(
                           fontSize: 18,
                           fontWeight: FontWeight.bold,

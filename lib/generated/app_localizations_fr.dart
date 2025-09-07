@@ -60,4 +60,10 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get tierPoor => 'Faible';
+
+  @override
+  String get settings => 'Paramètres';
+
+  @override
+  String get language => 'Langue';
 }

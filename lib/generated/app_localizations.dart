@@ -203,6 +203,18 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Poor'**
   String get tierPoor;
+
+  /// Settings page title
+  ///
+  /// In en, this message translates to:
+  /// **'Settings'**
+  String get settings;
+
+  /// Language selection section title
+  ///
+  /// In en, this message translates to:
+  /// **'Language'**
+  String get language;
 }
 
 class _AppLocalizationsDelegate

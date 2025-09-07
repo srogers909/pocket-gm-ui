@@ -67,5 +67,13 @@
   "tierPoor": "Schwach",
   "@tierPoor": {
     "description": "Description for teams with 66-70 rating"
+  },
+  "settings": "Einstellungen",
+  "@settings": {
+    "description": "Settings page title"
+  },
+  "language": "Sprache",
+  "@language": {
+    "description": "Language selection section title"
   }
 }

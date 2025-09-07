@@ -59,4 +59,10 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get tierPoor => 'Poor';
+
+  @override
+  String get settings => 'Settings';
+
+  @override
+  String get language => 'Language';
 }
