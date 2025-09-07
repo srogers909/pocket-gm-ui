@@ -68,7 +68,7 @@ class TeamSelectionModal extends StatelessWidget {
                       child: Text(
                         '${conference.name} (${conference.abbreviation})',
                         style: TextStyle(
-                          fontSize: 18,
+                          fontSize: 16,
                           fontWeight: FontWeight.bold,
                           color: AppColors.background,
                         ),
@@ -132,7 +132,7 @@ class TeamSelectionModal extends StatelessWidget {
                                         style: TextStyle(
                                           fontSize: 14,
                                           fontWeight: FontWeight.bold,
-                                          color: _getTierColor(team.tier),
+                                          color: _getTierColor(team.displayTier),
                                         ),
                                       ),
                                     ],
