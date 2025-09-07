@@ -39,6 +39,8 @@ class PocketGMApp extends StatelessWidget {
       supportedLocales: const [
         Locale('en'), // English
         Locale('es'), // Spanish
+        Locale('fr'), // French
+        Locale('de'), // German
       ],
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(

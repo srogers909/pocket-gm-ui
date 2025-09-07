@@ -1,0 +1,71 @@
+{
+  "@@locale": "de",
+  "appTitle": "Pocket GM",
+  "@appTitle": {
+    "description": "The title of the application"
+  },
+  "newButton": "Neu",
+  "@newButton": {
+    "description": "Button text for creating a new game"
+  },
+  "loadButton": "Laden",
+  "@loadButton": {
+    "description": "Button text for loading an existing game"
+  },
+  "chooseSaveSlot": "Speicherplatz Wählen",
+  "@chooseSaveSlot": {
+    "description": "Title for the save slot selection dialog"
+  },
+  "chooseSaveSlotToLoad": "Speicherplatz zum Laden Wählen",
+  "@chooseSaveSlotToLoad": {
+    "description": "Title for the load save slot selection dialog"
+  },
+  "empty": "LEER",
+  "@empty": {
+    "description": "Label for empty save slots"
+  },
+  "cancel": "Abbrechen",
+  "@cancel": {
+    "description": "Cancel button text"
+  },
+  "generationSourceQuestion": "Möchten Sie eine Liga generieren oder eine Online-Roster-Datei laden?",
+  "@generationSourceQuestion": {
+    "description": "Question asking user to choose between generating a league or loading from online"
+  },
+  "loadFromOnline": "Online Laden",
+  "@loadFromOnline": {
+    "description": "Button text for loading roster from online"
+  },
+  "generate": "Generieren",
+  "@generate": {
+    "description": "Button text for generating a new league"
+  },
+  "chooseYourTeam": "Wählen Sie Ihr Team:",
+  "@chooseYourTeam": {
+    "description": "Title for team selection dialog"
+  },
+  "ratingKey": "Bewertungsschlüssel:",
+  "@ratingKey": {
+    "description": "Header for the team rating legend"
+  },
+  "tierElite": "Elite",
+  "@tierElite": {
+    "description": "Description for teams with 85+ rating"
+  },
+  "tierStrong": "Stark",
+  "@tierStrong": {
+    "description": "Description for teams with 80-84 rating"
+  },
+  "tierAverage": "Durchschnitt",
+  "@tierAverage": {
+    "description": "Description for teams with 76-79 rating"
+  },
+  "tierRebuilding": "Aufbau",
+  "@tierRebuilding": {
+    "description": "Description for teams with 71-75 rating"
+  },
+  "tierPoor": "Schwach",
+  "@tierPoor": {
+    "description": "Description for teams with 66-70 rating"
+  }
+}
