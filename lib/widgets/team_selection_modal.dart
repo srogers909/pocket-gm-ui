@@ -215,12 +215,16 @@ class _TeamSelectionModalState extends State<TeamSelectionModal> {
                                       ),
                                       // Right-aligned team overall rating (conditional)
                                       if (_showOverallRating)
-                                        Text(
-                                          RatingUtils.getLetterGrade(team.averageOverallRating.ceil()),
-                                          style: TextStyle(
-                                            fontSize: 14,
-                                            fontWeight: FontWeight.bold,
-                                            color: RatingUtils.getRatingColor(team.averageOverallRating.ceil()),
+                                        SizedBox(
+                                          width: 30,
+                                          child: Text(
+                                            RatingUtils.getLetterGrade(team.averageOverallRating.ceil()),
+                                            style: TextStyle(
+                                              fontSize: 14,
+                                              fontWeight: FontWeight.bold,
+                                              color: RatingUtils.getRatingColor(team.averageOverallRating.ceil()),
+                                            ),
+                                            textAlign: TextAlign.left,
                                           ),
                                         ),
                                     ],
