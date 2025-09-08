@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:pocket_gm_generator/pocket_gm_generator.dart';
 import '../theme/colors.dart';
 import '../utils/rating_utils.dart';
+import '../utils/flag_utils.dart';
 
 class PlayerListItem extends StatefulWidget {
   final Player player;
@@ -45,16 +46,16 @@ class _PlayerListItemState extends State<PlayerListItem> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    '${widget.player.primaryPosition} - ${widget.player.commonName}',
+                    widget.player.commonName,
                     style: const TextStyle(
-                      fontSize: 16,
-                      fontWeight: FontWeight.w600,
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.black,
                     ),
                   ),
                   const SizedBox(height: 2),
                   Text(
-                    widget.player.birthInfo.split(' ').length > 1 ? 
-                      widget.player.birthInfo.split(' ')[1] : 'Age unknown',
+                    widget.player.primaryPosition,
                     style: TextStyle(
                       fontSize: 12,
                       color: AppColors.background.withValues(alpha: 0.8),
@@ -151,29 +152,32 @@ class PlayerDetailsCard extends StatelessWidget {
     );
   }
 
-  /// Builds a rating bar widget showing F D C B A scale with filled progress
+  /// Builds a rating bar widget showing F D C B A A+ scale with filled progress
   Widget _buildRatingBar(String label, int rating) {
     const double barHeight = 24.0;
-    const double barWidth = 200.0;
+    const double barWidth = 220.0;
     
     // Calculate fill percentage based on grade boundaries
-    // Since labels are equally spaced, we need to map the rating to the correct position
+    // Now we have 6 sections: F, D, C, B, A, A+
     double fillPercentage;
-    if (rating < 60) {
-      // F range: 0-59 maps to 0-25% (first quarter)
-      fillPercentage = (rating / 60.0) * 0.25;
-    } else if (rating < 70) {
-      // D range: 60-69 maps to 25-50% (second quarter)
-      fillPercentage = 0.25 + ((rating - 60) / 10.0) * 0.25;
-    } else if (rating < 80) {
-      // C range: 70-79 maps to 50-75% (third quarter)
-      fillPercentage = 0.50 + ((rating - 70) / 10.0) * 0.25;
-    } else if (rating < 90) {
-      // B range: 80-89 maps to 75-100% (fourth quarter)
-      fillPercentage = 0.75 + ((rating - 80) / 10.0) * 0.25;
+    if (rating < 55) {
+      // F range: 0-54 maps to 0-16.67% (first sixth)
+      fillPercentage = (rating / 55.0) * (1.0 / 6.0);
+    } else if (rating < 65) {
+      // D range: 55-64 maps to 16.67-33.33% (second sixth)
+      fillPercentage = (1.0 / 6.0) + ((rating - 55) / 10.0) * (1.0 / 6.0);
+    } else if (rating < 75) {
+      // C range: 65-74 maps to 33.33-50% (third sixth)
+      fillPercentage = (2.0 / 6.0) + ((rating - 65) / 10.0) * (1.0 / 6.0);
+    } else if (rating < 85) {
+      // B range: 75-84 maps to 50-66.67% (fourth sixth)
+      fillPercentage = (3.0 / 6.0) + ((rating - 75) / 10.0) * (1.0 / 6.0);
+    } else if (rating < 95) {
+      // A range: 85-94 maps to 66.67-83.33% (fifth sixth)
+      fillPercentage = (4.0 / 6.0) + ((rating - 85) / 10.0) * (1.0 / 6.0);
     } else {
-      // A range: 90-100 maps to 100% (at or past the A mark)
-      fillPercentage = 1.0;
+      // A+ range: 95-100 maps to 83.33-100% (sixth sixth)
+      fillPercentage = (5.0 / 6.0) + ((rating - 95) / 5.0) * (1.0 / 6.0);
     }
     
     fillPercentage = fillPercentage.clamp(0.0, 1.0);
@@ -236,6 +240,7 @@ class PlayerDetailsCard extends StatelessWidget {
                         _buildGradeLabel('C'),
                         _buildGradeLabel('B'),
                         _buildGradeLabel('A'),
+                        _buildGradeLabel('A+'),
                       ],
                     ),
                   ),
@@ -317,6 +322,7 @@ class PlayerDetailsCard extends StatelessWidget {
         ),
       ),
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Row(
             children: [
@@ -349,12 +355,21 @@ class PlayerDetailsCard extends StatelessWidget {
             ),
           ),
           const SizedBox(height: 4),
-          Text(
-            'Born: ${player.birthInfo}',
-            style: TextStyle(
-              fontSize: 14,
-              color: AppColors.background.withValues(alpha: 0.8),
-            ),
+          Row(
+            children: [
+              Text(
+                'Born: ${player.birthInfo}',
+                style: TextStyle(
+                  fontSize: 14,
+                  color: AppColors.background.withValues(alpha: 0.8),
+                ),
+              ),
+              const SizedBox(width: 6),
+              Text(
+                FlagUtils.getFlagForLocation(player.birthInfo),
+                style: const TextStyle(fontSize: 16),
+              ),
+            ],
           ),
         ],
       ),
@@ -392,34 +407,38 @@ class PlayerDetailsCard extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          // Player Name Section
-          _buildSection(
-            'Player Details',
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  'Full Name: ${player.fullName}',
-                  style: TextStyle(
-                    fontSize: 14,
-                    fontWeight: FontWeight.w500,
-                    color: AppColors.background.withValues(alpha: 0.9),
-                  ),
-                ),
-                if (player.fanNickname != null) ...[
-                  const SizedBox(height: 4),
-                  Text(
-                    'Nickname: "${player.fanNickname}"',
-                    style: TextStyle(
-                      fontSize: 14,
-                      fontStyle: FontStyle.italic,
-                      color: AppColors.background.withValues(alpha: 0.8),
-                    ),
-                  ),
-                ],
-              ],
+          // Draft Information Box
+          Container(
+            padding: const EdgeInsets.all(8),
+            decoration: BoxDecoration(
+              color: AppColors.primary.withValues(alpha: 0.1),
+              borderRadius: BorderRadius.circular(6),
+              border: Border.all(
+                color: AppColors.primary.withValues(alpha: 0.3),
+                width: 1,
+              ),
+            ),
+            child: Text(
+              player.draftInfo,
+              style: TextStyle(
+                fontSize: 13,
+                fontWeight: FontWeight.w500,
+                color: AppColors.primary,
+              ),
             ),
           ),
+          if (player.fanNickname != null) ...[
+            const SizedBox(height: 8),
+            Text(
+              'Nickname: "${player.fanNickname}"',
+              style: TextStyle(
+                fontSize: 14,
+                fontStyle: FontStyle.italic,
+                color: AppColors.background.withValues(alpha: 0.8),
+              ),
+            ),
+          ],
+          const SizedBox(height: 16),
 
           // Physical Attributes
           _buildSection(

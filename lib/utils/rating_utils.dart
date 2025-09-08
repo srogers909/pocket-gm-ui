@@ -4,18 +4,18 @@ import 'package:flutter/material.dart';
 class RatingUtils {
   /// Converts a numerical rating (0-100) to a letter grade
   static String getLetterGrade(int rating) {
-    if (rating >= 97) return 'A+';
-    if (rating >= 93) return 'A';
-    if (rating >= 90) return 'A-';
-    if (rating >= 87) return 'B+';
-    if (rating >= 83) return 'B';
-    if (rating >= 80) return 'B-';
-    if (rating >= 77) return 'C+';
-    if (rating >= 73) return 'C';
-    if (rating >= 70) return 'C-';
-    if (rating >= 67) return 'D+';
-    if (rating >= 63) return 'D';
-    if (rating >= 60) return 'D-';
+    if (rating >= 95) return 'A+';
+    if (rating >= 90) return 'A';
+    if (rating >= 85) return 'A-';
+    if (rating >= 82) return 'B+';
+    if (rating >= 78) return 'B';
+    if (rating >= 75) return 'B-';
+    if (rating >= 72) return 'C+';
+    if (rating >= 68) return 'C';
+    if (rating >= 65) return 'C-';
+    if (rating >= 62) return 'D+';
+    if (rating >= 58) return 'D';
+    if (rating >= 55) return 'D-';
     return 'F';
   }
 
