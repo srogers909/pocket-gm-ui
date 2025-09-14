@@ -181,7 +181,7 @@ class _TeamSelectionModalState extends State<TeamSelectionModal> {
                           ),
                           // Team Buttons for this division (sorted by overall rating descending)
                           ...(division.teams
-                              ..sort((a, b) => b.averageOverallRating.compareTo(a.averageOverallRating)))
+                              ..sort((a, b) => a.name.compareTo(b.name)))
                               .map((team) {
                             return Padding(
                               padding: const EdgeInsets.symmetric(vertical: 2.0),

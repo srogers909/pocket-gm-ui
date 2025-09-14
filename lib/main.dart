@@ -11,11 +11,7 @@ import 'providers/locale_provider.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   
-  // Set preferred orientations to portrait only
-  SystemChrome.setPreferredOrientations([
-    DeviceOrientation.portraitUp,
-    DeviceOrientation.portraitDown,
-  ]);
+  // Orientation unlocked: allow all supported orientations (portrait & landscape).
   
   // Hide system navigation and status bars
   SystemChrome.setEnabledSystemUIMode(
