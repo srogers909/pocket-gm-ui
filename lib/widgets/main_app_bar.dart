@@ -4,11 +4,13 @@ import '../theme/colors.dart';
 class MainAppBar extends StatelessWidget implements PreferredSizeWidget {
   final VoidCallback? onMenuPressed;
   final VoidCallback? onSettingsPressed;
+  final String? title;
 
   const MainAppBar({
     super.key,
     this.onMenuPressed,
     this.onSettingsPressed,
+    this.title,
   });
 
   @override
@@ -18,6 +20,16 @@ class MainAppBar extends StatelessWidget implements PreferredSizeWidget {
       foregroundColor: AppColors.onPrimary,
       elevation: 2,
       shadowColor: Colors.black26,
+      title: title != null
+          ? Text(
+              title!,
+              style: const TextStyle(
+                fontSize: 20,
+                fontWeight: FontWeight.bold,
+              ),
+              overflow: TextOverflow.ellipsis,
+            )
+          : null,
       leading: IconButton(
         icon: const Icon(Icons.menu),
         onPressed: onMenuPressed,
@@ -31,7 +43,7 @@ class MainAppBar extends StatelessWidget implements PreferredSizeWidget {
         ),
       ],
       // Center title area is left empty as requested
-      centerTitle: true,
+      centerTitle: false,
     );
   }
 

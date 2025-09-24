@@ -47,6 +47,8 @@ dependencies:
   # Local generator package
   pocket_gm_generator:
     path: ../generator
+  pocket_gm_widgets:
+    path: ../pocket_gm_widgets
 
 dev_dependencies:
   flutter_test:

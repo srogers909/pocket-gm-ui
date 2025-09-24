@@ -20,7 +20,7 @@ class SaveSlotModal extends StatelessWidget {
       title: Text(
         title,
         style: TextStyle(
-          color: AppColors.background,
+          color: AppColors.onSurface,
           fontWeight: FontWeight.bold,
           fontSize: 20,
         ),

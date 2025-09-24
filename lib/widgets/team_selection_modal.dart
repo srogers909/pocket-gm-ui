@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:pocket_gm_generator/pocket_gm_generator.dart';
+import 'package:provider/provider.dart';
 import '../generated/app_localizations.dart';
 import '../theme/colors.dart';
 import '../utils/rating_utils.dart';
+import '../providers/team_provider.dart';
+import '../providers/navigation_provider.dart';
 
 class TeamSelectionModal extends StatefulWidget {
   final League league;
@@ -32,7 +35,7 @@ class _TeamSelectionModalState extends State<TeamSelectionModal> {
           title: Text(
             'Are you sure you want to control ${team.name}?',
             style: TextStyle(
-              color: AppColors.background,
+              color: AppColors.onSurface,
               fontSize: 18,
               fontWeight: FontWeight.bold,
             ),
@@ -43,9 +46,20 @@ class _TeamSelectionModalState extends State<TeamSelectionModal> {
               children: [
                 ElevatedButton(
                   onPressed: () {
+                    // Close dialogs first
                     Navigator.of(context).pop(); // Close confirmation dialog
                     Navigator.of(context).pop(); // Close team selection modal
-                    widget.onTeamSelected(team);
+
+                    // Defer provider updates & navigation until after dialogs are fully dismissed
+                    // to avoid a frame where the dashboard content paints without the Scaffold,
+                    // which manifested as a black background flash.
+                    WidgetsBinding.instance.addPostFrameCallback((_) {
+                      final teamProvider = context.read<TeamProvider>();
+                      teamProvider.setTeam(team);
+                      context.read<NavigationProvider>().setPage(AppPage.dashboard);
+                      // Preserve existing callback behavior
+                      widget.onTeamSelected(team);
+                    });
                   },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: AppColors.primary,
@@ -101,7 +115,7 @@ class _TeamSelectionModalState extends State<TeamSelectionModal> {
       title: Text(
         localizations.chooseYourTeam,
         style: TextStyle(
-          color: AppColors.background,
+                        color: AppColors.onSurface,
           fontSize: 20,
           fontWeight: FontWeight.bold,
         ),
@@ -124,7 +138,7 @@ class _TeamSelectionModalState extends State<TeamSelectionModal> {
                       style: TextStyle(
                         fontSize: 16,
                         fontWeight: FontWeight.w500,
-                        color: AppColors.background,
+                          color: AppColors.onSurface,
                       ),
                     ),
                     Switch(
@@ -158,7 +172,7 @@ class _TeamSelectionModalState extends State<TeamSelectionModal> {
                         style: TextStyle(
                           fontSize: 16,
                           fontWeight: FontWeight.bold,
-                          color: AppColors.background,
+                                color: AppColors.onSurface,
                         ),
                       ),
                     ),
@@ -175,7 +189,7 @@ class _TeamSelectionModalState extends State<TeamSelectionModal> {
                               style: TextStyle(
                                 fontSize: 16,
                                 fontWeight: FontWeight.w500,
-                                color: AppColors.background,
+                          color: AppColors.onSurface,
                               ),
                             ),
                           ),
@@ -252,7 +266,7 @@ class _TeamSelectionModalState extends State<TeamSelectionModal> {
                         style: TextStyle(
                           fontSize: 16,
                           fontWeight: FontWeight.bold,
-                          color: AppColors.background,
+                                  color: AppColors.onSurface,
                         ),
                       ),
                       const SizedBox(height: 8),
@@ -295,7 +309,7 @@ class _TeamSelectionModalState extends State<TeamSelectionModal> {
                                 '${gradeInfo['grade']} (${gradeInfo['range']})',
                                 style: TextStyle(
                                   fontSize: 12,
-                                  color: AppColors.background,
+                                  color: AppColors.onSurface,
                                 ),
                               ),
                             ],

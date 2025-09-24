@@ -2,11 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:provider/provider.dart';
-import 'screens/cover_page.dart';
 import 'screens/main_scaffold.dart';
 import 'theme/colors.dart';
 import 'generated/app_localizations.dart';
 import 'providers/locale_provider.dart';
+import 'providers/team_provider.dart';
+import 'providers/navigation_provider.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -33,9 +34,13 @@ class PocketGMApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider.value(
-      value: localeProvider,
-      child: Consumer<LocaleProvider>(
+return MultiProvider(
+        providers: [
+          ChangeNotifierProvider.value(value: localeProvider),
+          ChangeNotifierProvider(create: (_) => TeamProvider()),
+          ChangeNotifierProvider(create: (_) => NavigationProvider()),
+        ],
+        child: Consumer<LocaleProvider>(
         builder: (context, localeProvider, child) {
           return MaterialApp(
             title: 'Pocket GM',
@@ -53,35 +58,61 @@ class PocketGMApp extends StatelessWidget {
               Locale('de'), // German
             ],
             theme: ThemeData(
-              colorScheme: ColorScheme.fromSeed(
-                seedColor: AppColors.primary,
-                brightness: Brightness.dark,
-              ).copyWith(
-                primary: AppColors.primary,
-                secondary: AppColors.secondary,
-                surface: AppColors.surface,
-                onPrimary: AppColors.onPrimary,
-                onSecondary: AppColors.onSecondary,
-                onSurface: AppColors.onSurface,
-              ),
+              // Midnight high-contrast theme
               useMaterial3: true,
               scaffoldBackgroundColor: AppColors.background,
+              colorScheme: const ColorScheme(
+                brightness: Brightness.dark,
+                primary: AppColors.primary,
+                onPrimary: AppColors.onPrimary,
+                secondary: AppColors.secondary,
+                onSecondary: AppColors.onSecondary,
+                error: Colors.redAccent,
+                onError: Colors.white,
+                surface: AppColors.surface,
+                onSurface: AppColors.onSurface,
+              ),
+              textTheme: Typography.whiteMountainView.apply(
+                bodyColor: Colors.white,
+                displayColor: Colors.white,
+              ),
+              appBarTheme: const AppBarTheme(
+                backgroundColor: AppColors.background,
+                foregroundColor: Colors.white,
+                elevation: 0,
+              ),
+              dividerColor: AppColors.midnightSecondary,
               elevatedButtonTheme: ElevatedButtonThemeData(
                 style: ElevatedButton.styleFrom(
+                  backgroundColor: AppColors.primary,
+                  foregroundColor: AppColors.onPrimary,
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(2.0),
                   ),
                 ),
               ),
+              textButtonTheme: TextButtonThemeData(
+                style: TextButton.styleFrom(
+                  foregroundColor: AppColors.link, // links = yellow
+                ),
+              ),
               dialogTheme: const DialogThemeData(
+                backgroundColor: AppColors.surface,
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.all(Radius.circular(2.0)),
                 ),
               ),
+              cardTheme: CardThemeData(
+                color: AppColors.surface,
+                margin: const EdgeInsets.all(5),
+                shape: RoundedRectangleBorder(
+                  side: const BorderSide(width: 1, color: AppColors.primary),
+                  borderRadius: BorderRadius.circular(4),
+                ),
+                elevation: 0,
+              ),
             ),
-            home: const MainScaffold(
-              body: CoverPage(),
-            ),
+            home: const MainScaffold(),
             debugShowCheckedModeBanner: false,
           );
         },

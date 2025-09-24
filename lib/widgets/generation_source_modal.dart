@@ -3,7 +3,6 @@ import '../generated/app_localizations.dart';
 import 'package:pocket_gm_generator/pocket_gm_generator.dart';
 import '../theme/colors.dart';
 import 'team_selection_modal.dart';
-import '../screens/team_dashboard_screen.dart';
 
 class GenerationSourceModal extends StatelessWidget {
   const GenerationSourceModal({super.key});
@@ -17,7 +16,7 @@ class GenerationSourceModal extends StatelessWidget {
       content: Text(
         localizations.generationSourceQuestion,
         style: TextStyle(
-          color: AppColors.background,
+          color: AppColors.onSurface,
           fontSize: 16,
         ),
         textAlign: TextAlign.center,
@@ -87,12 +86,11 @@ class GenerationSourceModal extends StatelessWidget {
         return TeamSelectionModal(
           league: league,
           onTeamSelected: (Team selectedTeam) {
-            // Navigate to the roster screen with the selected team
-            Navigator.of(context).push(
-              MaterialPageRoute(
-                builder: (context) => TeamDashboardScreen(team: selectedTeam),
-              ),
-            );
+            // Navigation & provider updates are handled inside TeamSelectionModal's
+            // confirmation flow. We intentionally do NOT push a new route here to
+            // avoid rendering the dashboard on a standalone route (which caused
+            // the black background flash before the main scaffold appeared).
+            // This callback is retained for future extensibility.
           },
         );
       },

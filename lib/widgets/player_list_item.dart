@@ -7,10 +7,7 @@ import '../utils/flag_utils.dart';
 class PlayerListItem extends StatefulWidget {
   final Player player;
 
-  const PlayerListItem({
-    super.key,
-    required this.player,
-  });
+  const PlayerListItem({super.key, required this.player});
 
   @override
   State<PlayerListItem> createState() => _PlayerListItemState();
@@ -19,16 +16,13 @@ class PlayerListItem extends StatefulWidget {
 class _PlayerListItemState extends State<PlayerListItem> {
   bool _isExpanded = false;
 
-
   @override
   Widget build(BuildContext context) {
     return Card(
       margin: EdgeInsets.zero,
       elevation: 2,
-      color: Colors.white,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(2.0),
-      ),
+      color: AppColors.surface,
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(2.0)),
       child: ExpansionTile(
         initiallyExpanded: _isExpanded,
         onExpansionChanged: (expanded) {
@@ -50,7 +44,7 @@ class _PlayerListItemState extends State<PlayerListItem> {
                     style: const TextStyle(
                       fontSize: 18,
                       fontWeight: FontWeight.bold,
-                      color: Colors.black,
+                      color: AppColors.onSurface,
                     ),
                   ),
                   const SizedBox(height: 2),
@@ -68,10 +62,14 @@ class _PlayerListItemState extends State<PlayerListItem> {
             Container(
               padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
               decoration: BoxDecoration(
-                color: RatingUtils.getRatingBackgroundColor(widget.player.overallRating),
+                color: RatingUtils.getRatingBackgroundColor(
+                  widget.player.overallRating,
+                ),
                 borderRadius: BorderRadius.circular(16),
                 border: Border.all(
-                  color: RatingUtils.getRatingBorderColor(widget.player.overallRating),
+                  color: RatingUtils.getRatingBorderColor(
+                    widget.player.overallRating,
+                  ),
                   width: 1.5,
                 ),
               ),
@@ -80,11 +78,13 @@ class _PlayerListItemState extends State<PlayerListItem> {
                 style: TextStyle(
                   fontSize: 14,
                   fontWeight: FontWeight.bold,
-                  color: RatingUtils.getRatingColor(widget.player.overallRating),
+                  color: RatingUtils.getRatingColor(
+                    widget.player.overallRating,
+                  ),
                   shadows: [
                     Shadow(
                       blurRadius: 1.0,
-                      color: Colors.black.withOpacity(0.5),
+                      color: AppColors.background.withValues(alpha: 0.6),
                       offset: const Offset(1.0, 1.0),
                     ),
                   ],
@@ -106,9 +106,7 @@ class _PlayerListItemState extends State<PlayerListItem> {
                 ),
               )
             : null,
-        children: [
-          PlayerDetailsCard(player: widget.player),
-        ],
+        children: [PlayerDetailsCard(player: widget.player)],
       ),
     );
   }
@@ -117,10 +115,7 @@ class _PlayerListItemState extends State<PlayerListItem> {
 class PlayerDetailsCard extends StatelessWidget {
   final Player player;
 
-  const PlayerDetailsCard({
-    super.key,
-    required this.player,
-  });
+  const PlayerDetailsCard({super.key, required this.player});
 
   /// Builds a rating chip widget with letter grade
   Widget _buildRatingChip(String label, int rating) {
@@ -143,7 +138,7 @@ class PlayerDetailsCard extends StatelessWidget {
           shadows: [
             Shadow(
               blurRadius: 1.0,
-              color: Colors.black.withOpacity(0.5),
+              color: AppColors.background.withValues(alpha: 0.6),
               offset: const Offset(1.0, 1.0),
             ),
           ],
@@ -156,7 +151,7 @@ class PlayerDetailsCard extends StatelessWidget {
   Widget _buildRatingBar(String label, int rating) {
     const double barHeight = 24.0;
     const double barWidth = 220.0;
-    
+
     // Calculate fill percentage based on grade boundaries
     // Now we have 6 sections: F, D, C, B, A, A+
     double fillPercentage;
@@ -179,10 +174,10 @@ class PlayerDetailsCard extends StatelessWidget {
       // A+ range: 95-100 maps to 83.33-100% (sixth sixth)
       fillPercentage = (5.0 / 6.0) + ((rating - 95) / 5.0) * (1.0 / 6.0);
     }
-    
+
     fillPercentage = fillPercentage.clamp(0.0, 1.0);
     final Color ratingColor = RatingUtils.getRatingColor(rating);
-    
+
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 4.0),
       child: Row(
@@ -259,7 +254,7 @@ class PlayerDetailsCard extends StatelessWidget {
               shadows: [
                 Shadow(
                   blurRadius: 0.5,
-                  color: Colors.black.withOpacity(0.5),
+                  color: AppColors.background.withValues(alpha: 0.6),
                   offset: const Offset(1.0, 1.0),
                 ),
               ],
@@ -277,7 +272,7 @@ class PlayerDetailsCard extends StatelessWidget {
       style: TextStyle(
         fontSize: 10,
         fontWeight: FontWeight.w600,
-        color: Colors.black.withValues(alpha: 0.6),
+        color: AppColors.onSurface.withValues(alpha: 0.85),
         shadows: [
           Shadow(
             blurRadius: 1.0,
@@ -441,10 +436,7 @@ class PlayerDetailsCard extends StatelessWidget {
           const SizedBox(height: 16),
 
           // Physical Attributes
-          _buildSection(
-            'Physical Attributes',
-            _buildPhysicalAttributes(),
-          ),
+          _buildSection('Physical Attributes', _buildPhysicalAttributes()),
 
           // Core Ratings
           _buildSection(
